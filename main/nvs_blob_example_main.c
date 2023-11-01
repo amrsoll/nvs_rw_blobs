@@ -23,7 +23,7 @@
 #define STORAGE_BLOB_2 "storage_blob_2"
 
 #define BUFFER_LEN_1 6000
-#define BUFFER_LEN_2 4000
+#define BUFFER_LEN_2 6000
 
 esp_err_t save_blobs(void)
 {
@@ -36,13 +36,14 @@ esp_err_t save_blobs(void)
 
     // Read previously saved blob if available
     char * my_blob = malloc(BUFFER_LEN_1);
-
+    if( my_blob == NULL) ESP_LOGE(STORAGE_NAMESPACE, "Running out of space!");
     printf("Writing : %zu\n", BUFFER_LEN_1 * sizeof(char));
     err = nvs_set_blob(my_handle, STORAGE_BLOB_1, my_blob, BUFFER_LEN_1 * sizeof(char));
     my_blob = realloc(my_blob, BUFFER_LEN_2 * sizeof(char));
+    if( my_blob == NULL) ESP_LOGE(STORAGE_NAMESPACE, "Running out of space!");
     printf("Writing : %zu\n", BUFFER_LEN_2 * sizeof(char));
     err = nvs_set_blob(my_handle, STORAGE_BLOB_2, my_blob, BUFFER_LEN_2 * sizeof(char));
-
+    free(my_blob);
     if (err != ESP_OK) return err;
 
     // Commit
