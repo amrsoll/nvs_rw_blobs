@@ -41,6 +41,7 @@ esp_err_t save_blobs(void)
     err = nvs_set_blob(my_handle, STORAGE_BLOB_1, my_blob, BUFFER_LEN_1 * sizeof(char));
     my_blob = realloc(my_blob, BUFFER_LEN_2 * sizeof(char));
     if( my_blob == NULL) ESP_LOGE(STORAGE_NAMESPACE, "Running out of space!");
+    err = nvs_commit(my_handle);
     printf("Writing : %zu\n", BUFFER_LEN_2 * sizeof(char));
     err = nvs_set_blob(my_handle, STORAGE_BLOB_2, my_blob, BUFFER_LEN_2 * sizeof(char));
     free(my_blob);
