@@ -1,0 +1,12 @@
+build/
+.venv
+sdkconfig
+sdkconfig.old
+sdkconfig.defaults.todelete
+sdkconfig.todelete
+.devcontainer
+.vscode
+.cache
+CMakeFiles/
+CMakeCache.txt
+dependencies.lock
